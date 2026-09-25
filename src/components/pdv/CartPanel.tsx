@@ -52,7 +52,7 @@ export function CartPanel({
             <div key={item.id} className="border p-1">
               <div className="text-lg flex justify-between border-b">
                 <p className="truncate pr-2">
-                  {String(idx + 1).padStart(2, "0")}. {item.product.name}
+                  {String(cart.length - idx).padStart(2, "0")}. {item.product.name}
                 </p>
                 <div className="flex items-center gap-2 shrink-0">
                   <p>{formatBRL(priceCents / 100)}</p>
