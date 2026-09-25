@@ -6,13 +6,19 @@ import {
   BrowserMultiFormatReader,
   IScannerControls,
 } from "@zxing/browser";
-import { NotFoundException, Result } from "@zxing/library";
+
+import {
+  BarcodeFormat,
+  DecodeHintType,
+  NotFoundException,
+  Result,
+} from "@zxing/library";
 
 type Props = {
   onDetected: (code: string) => Promise<boolean> | boolean;
 };
 
-const DUPLICATE_SCAN_COOLDOWN_MS = 2500;
+const DUPLICATE_SCAN_COOLDOWN_MS = 800;
 
 export function BarcodeScannerButton({ onDetected }: Props) {
   const [isActive, setIsActive] = useState(false);
@@ -40,7 +46,9 @@ export function BarcodeScannerButton({ onDetected }: Props) {
         }
       ).webkitAudioContext;
 
-    if (!AudioCtx) return;
+    if (!AudioCtx) {
+      return;
+    }
 
     const context = new AudioCtx();
     const oscillator = context.createOscillator();
@@ -99,7 +107,14 @@ export function BarcodeScannerButton({ onDetected }: Props) {
       setError("");
       setScanFeedback("Posicione o código de barras na câmera.");
 
-      const reader = new BrowserMultiFormatReader();
+      const hints = new Map();
+
+      hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+        BarcodeFormat.EAN_13,
+      ]);
+
+      const reader = new BrowserMultiFormatReader(hints);
+
       readerRef.current = reader;
 
       controlsRef.current = await reader.decodeFromConstraints(
@@ -107,6 +122,8 @@ export function BarcodeScannerButton({ onDetected }: Props) {
           audio: false,
           video: {
             facingMode: { ideal: "environment" },
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
           },
         },
         videoRef.current,
@@ -213,7 +230,7 @@ export function BarcodeScannerButton({ onDetected }: Props) {
       <video
         ref={videoRef}
         className={
-          isActive ? "w-full aspect-video object-cover" : "hidden"
+          isActive ? "aspect-video w-full object-cover" : "hidden"
         }
         autoPlay
         muted
