@@ -45,7 +45,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={pending}
-          className="text-sm uppercase p-2 cursor-pointer"
+          className="text-sm uppercase p-2 cursor-pointer w-full"
         >
           entrar
         </button>
