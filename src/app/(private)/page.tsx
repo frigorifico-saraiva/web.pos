@@ -1,18 +1,8 @@
-import { isApiError } from "@/lib/api/types";
-import { getUser } from "@/lib/api/user";
 import Link from "next/link";
 
 export default async function Home() {
-  const user = await getUser();
-
-  if (isApiError(user)) {
-    return;
-  }
-
   return (
     <main className="flex flex-col mt-12 text-6xl sm:text-8xl font-light">
-      {user.username !== "hugo" && (
-        <>
           <Link href={"/pdv"}>
             <span className="text-2xl">1</span>
             pdv
@@ -42,27 +32,6 @@ export default async function Home() {
             <span className="text-2xl">6</span>
             produtos
           </Link>
-        </>
-      )}
-      {user.username === "hugo" && (
-        <>
-          <Link href={"/caixa"} className="mt-4">
-            💰
-          </Link>
-
-          <Link href={"/fiados"} className="mt-4">
-            💶
-          </Link>
-
-          <Link href={"/pagamentos"} className="mt-4">
-            💸
-          </Link>
-
-          <Link href={"/contatos"} className="mt-4">
-            📒
-          </Link>
-        </>
-      )}
     </main>
   );
 }
