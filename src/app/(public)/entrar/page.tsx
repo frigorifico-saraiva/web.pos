@@ -1,6 +1,6 @@
 import LoginForm from "./form";
 
-export default function Acompanhe() {
+export default function Entrar() {
   return (
     <main className="mt-2">
       <p className="text-8xl font-light -ml-2">nizee</p>
