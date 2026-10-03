@@ -1,3 +1,5 @@
+import Skeleton from "@/components/skeleton";
+
 export default function Loading() {
   return (
     <section className="mt-6">
@@ -52,14 +54,6 @@ function TransactionFormSkeleton() {
       <div className="mt-10 w-full">
         <Skeleton className="h-9 w-full" />
       </div>
-    </div>
-  );
-}
-
-function Skeleton({ className }: { className?: string }) {
-  return (
-    <div className={`relative overflow-hidden rounded bg-gray-200/70 ${className}`}>
-      <div className="absolute inset-0 animate-[shimmer_1.5s_infinite] bg-linear-to-r from-transparent via-white/60 to-transparent" />
     </div>
   );
 }

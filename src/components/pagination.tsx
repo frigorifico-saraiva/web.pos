@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -11,7 +11,6 @@ export default function Pagination({
   count: number;
   pageSize?: number;
 }) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
@@ -24,7 +23,8 @@ export default function Pagination({
   const goToPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(page));
-    router.push(`${pathname}?${params.toString()}`);
+
+    window.location.href = `${pathname}?${params.toString()}`;
   };
 
   if (totalPages <= 1) return null;
@@ -34,13 +34,13 @@ export default function Pagination({
       <button
         onClick={() => goToPage(safeCurrentPage - 1)}
         disabled={safeCurrentPage === 1}
-        className="flex items-center justify-start w-7 h-7 rounded-md disabled:opacity-30"
+        className="flex items-center justify-start w-7 h-7 rounded-md disabled:opacity-30 cursor-pointer"
       >
         <MoveLeft size={14} />
       </button>
 
-      <div className="flex justify-between gap-6">
-        <p className="text-xs font-bold">{safeCurrentPage}</p>
+      <div className="flex justify-between gap-3">
+        <p className="text-xs font-bold">{safeCurrentPage} /</p>
         <p className="text-xs font-bold">{totalPages}</p>
       </div>
       <p className="text-sm justify-center normal-case"></p>
@@ -48,7 +48,7 @@ export default function Pagination({
       <button
         onClick={() => goToPage(safeCurrentPage + 1)}
         disabled={safeCurrentPage === totalPages}
-        className="flex items-center justify-start w-7 h-7 rounded-md disabled:opacity-30"
+        className="flex items-center justify-start w-7 h-7 rounded-md disabled:opacity-30 cursor-pointer"
       >
         <MoveRight size={14} />
       </button>
