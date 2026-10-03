@@ -352,19 +352,19 @@ function FilterSkeleton() {
               <div
                 className="grid items-center justify-center shrink-0 rounded-md"
               >
-                <p className="text-xs py-0.5">hoje</p>
+                <p className="text-xs font-normal py-0.5">hoje</p>
               </div>
 
               <div
                 className="grid items-center justify-center shrink-0 rounded-md"
               >
-                <p className="text-xs py-0.5">essa semana</p>
+                <p className="text-xs font-normal py-0.5">essa semana</p>
               </div>
 
               <div
                 className="grid items-center justify-center shrink-0 rounded-md"
               >
-                <p className="text-xs py-0.5">mês</p>
+                <p className="text-xs font-normal py-0.5">mês</p>
               </div>
 
             </div>
